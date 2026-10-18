@@ -1,16 +1,9 @@
-"use client";
-
-import { useState } from "react";
-import { ArrowDownRight, ArrowRight, ArrowUpRight, CalendarDays, Check, ChevronDown, ClipboardList, Clock3, Headphones, HeartHandshake, LockKeyhole, Menu, MessageCircle, Phone, ShieldCheck, Sparkles, Stethoscope, UsersRound, X } from "lucide-react";
+import { ArrowDownRight, ArrowRight, ArrowUpRight, CalendarDays, Check, ClipboardList, Clock3, HeartHandshake, LockKeyhole, MessageCircle, Phone, ShieldCheck, Sparkles, Stethoscope, UsersRound } from "lucide-react";
+import FaqSection from "@/components/faq-section";
+import { HeroIllustration, HomeCareIllustration, PracticeIllustration, TaskList } from "@/components/illustrations";
+import SiteHeader from "@/components/site-header";
 
 const contactEmail = process.env.NEXT_PUBLIC_CAREOPS_CONTACT_EMAIL || "intellixsolutionsltd@gmail.com";
-
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Who we help", href: "#who-we-help" },
-];
 
 const challenges = [
   { icon: Phone, title: "Missed calls, delayed follow-ups", text: "Patient calls and messages can pile up while your staff is helping the people already in front of them." },
@@ -37,21 +30,6 @@ const audiences = [
   { icon: ArrowUpRight, title: "Growing healthcare organizations", text: "Flexible operational support as your needs evolve." },
 ];
 
-const faqs = [
-  { q: "What services does CareOps provide?", a: "CareOps provides remote administrative support for medical practices and non-medical home care agencies. This can include patient calls, appointment coordination, caregiver scheduling, follow-ups, and routine operational reporting." },
-  { q: "Do you support medical practices and home care agencies?", a: "Yes. We support both US medical practices and non-medical home care agencies, with responsibilities and workflows scoped to the needs of each organization." },
-  { q: "How does remote healthcare administrative support work?", a: "We learn how your team works, agree on tasks and communication protocols, and coordinate support remotely through approved systems and documented processes." },
-  { q: "Can you work with our existing scheduling or practice management software?", a: "Access depends on the software, your approval, and the appropriate security and contractual arrangements. We discuss system requirements before any work begins." },
-  { q: "Can we customize the support around our workflow?", a: "Yes. Responsibilities, coverage arrangements, escalation rules, and reporting can be defined together around your workflow and operational requirements." },
-  {
-    q: "How do you approach patient privacy and information security?",
-    a: "We aim to establish clear access controls, documented procedures, appropriate training, and secure client-approved workflows. Applicable requirements and Business Associate Agreements will be addressed where required before relevant services begin.",
-  },
-  { q: "How do we get started?", a: "Start by telling us about your organization and where support would be useful. We can discuss your current process, systems, and a practical starting point." },
-  { q: "What do we agree on before support starts?", a: "We define the tasks in and out of scope, coverage windows, approved systems and access, escalation contacts, and the updates or reports that are useful to your team." },
-  { q: "Who handles clinical questions or decisions?", a: "CareOps provides administrative support only. Clinical judgment, triage, diagnosis, treatment, and care decisions stay with your qualified staff; we follow your agreed routing instructions for clinical questions." },
-];
-
 function Brand({ inverse = false }: { inverse?: boolean }) {
   return (
     <a href="#top" className="inline-flex items-center no-underline" aria-label="CareOps home">
@@ -60,251 +38,15 @@ function Brand({ inverse = false }: { inverse?: boolean }) {
   );
 }
 
-function HeroIllustration() {
-  return (
-    <div className="hero-art" aria-label="Illustration of a weekly administrative schedule and coordination notes" role="img">
-      <div className="hero-orbit" />
-      <div className="schedule-window">
-        <div className="window-top">
-          <div className="flex items-center gap-3">
-            <span className="window-dot">
-              <i />
-              <i />
-              <i />
-            </span>
-            <span className="text-[10px] font-bold text-[#28464d]">Weekly coordination</span>
-          </div>
-          <span className="rounded-full bg-[#CDEFFF] px-2.5 py-1 text-[8px] font-semibold text-[#0E6284]">Illustrative</span>
-        </div>
-        <div className="schedule-body">
-          <div className="schedule-days">
-            <span />
-            <span>MON</span>
-            <span>TUE</span>
-            <span>WED</span>
-            <span>THU</span>
-            <span>FRI</span>
-          </div>
-          <div className="schedule-row">
-            <strong>Front desk</strong>
-            <span className="slot">Call backs</span>
-            <span className="slot dark">Clinic hours</span>
-            <span className="slot">Reminders</span>
-            <span />
-            <span className="slot">Follow-ups</span>
-          </div>
-          <div className="schedule-row">
-            <strong>Care team</strong>
-            <span />
-            <span className="slot gold">Confirm shift</span>
-            <span className="slot">Coverage</span>
-            <span className="slot dark">Schedule</span>
-            <span className="slot">Check-in</span>
-          </div>
-          <div className="schedule-row">
-            <strong>Messages</strong>
-            <span className="slot">Review</span>
-            <span />
-            <span className="slot gold">Route</span>
-            <span className="slot">Callbacks</span>
-            <span />
-          </div>
-        </div>
-      </div>
-      <div className="float-card float-appointment">
-        <div className="flex items-center justify-between">
-          <span className="mini-label">Appointment</span>
-          <CalendarDays size={13} className="text-[#0E6284]" />
-        </div>
-        <p className="mt-2 mb-2 text-[11px] font-bold text-[#193847]">Confirmation needed</p>
-        <div className="flex items-center justify-between">
-          <span className="text-[8px] text-[#76877f]">Routine follow-up</span>
-          <span className="status-pill">Pending</span>
-        </div>
-      </div>
-      <div className="float-card float-shift">
-        <div className="flex items-center justify-between">
-          <span className="mini-label">Shift coordination</span>
-          <span className="status-pill">Confirmed</span>
-        </div>
-        <div className="mt-3 flex items-center gap-2.5">
-          <span className="tiny-person">AM</span>
-          <div>
-            <p className="m-0 text-[9px] font-bold text-[#193847]">Care team update</p>
-            <p className="m-0 mt-1 text-[8px] text-[#76877f]">Schedule noted for Tuesday</p>
-          </div>
-        </div>
-      </div>
-      <div className="float-phone" aria-hidden="true">
-        <Headphones size={20} />
-      </div>
-    </div>
-  );
-}
-
-function PracticeIllustration() {
-  return (
-    <div className="line-art" role="img" aria-label="Illustrative appointment calendar and patient communication queue">
-      <div className="mini-panel mini-calendar">
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] font-bold text-[#213f49]">Appointments</span>
-          <CalendarDays size={14} className="text-[#0E6284]" />
-        </div>
-        <div className="week-strip">
-          <span>
-            MON
-            <br />
-            <b>12</b>
-          </span>
-          <span>
-            TUE
-            <br />
-            <b>13</b>
-          </span>
-          <span>
-            WED
-            <br />
-            <b>14</b>
-          </span>
-          <span>
-            THU
-            <br />
-            <b>15</b>
-          </span>
-          <span>
-            FRI
-            <br />
-            <b>16</b>
-          </span>
-        </div>
-        <div className="mt-3 space-y-1.5">
-          <div className="h-[6px] w-[70%] rounded bg-[#CDEFFF]" />
-          <div className="h-[6px] w-[86%] rounded bg-[#7AD9FF]/35" />
-          <div className="h-[6px] w-[52%] rounded bg-[#CDEFFF]" />
-        </div>
-      </div>
-      <div className="mini-panel queue-card">
-        <div className="mb-2 flex items-center justify-between">
-          <span className="text-[9px] font-bold text-[#213f49]">Message queue</span>
-          <span className="status-pill">Illustrative</span>
-        </div>
-        <div className="thin-row">
-          <span>Voicemail follow-up</span>
-          <span className="text-[#ac8248]">To route</span>
-        </div>
-        <div className="thin-row">
-          <span>Appointment request</span>
-          <span className="text-[#0E6284]">Noted</span>
-        </div>
-        <div className="thin-row">
-          <span>Referral coordination</span>
-          <span className="text-[#0E6284]">In process</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HomeCareIllustration() {
-  return (
-    <div className="line-art" role="img" aria-label="Illustrative caregiver schedule showing confirmed, pending, and coverage-needed statuses">
-      <div className="mini-panel shift-board">
-        <div className="mb-3 flex items-center justify-between">
-          <div>
-            <span className="text-[10px] font-bold text-[#213f49]">Care team schedule</span>
-            <p className="m-0 mt-1 text-[8px] text-[#819088]">Coordination view · example only</p>
-          </div>
-          <CalendarDays size={16} className="text-[#0E6284]" />
-        </div>
-        <div className="shift-item font-semibold text-[#87948d]">
-          <span>VISIT</span>
-          <span>ASSIGNMENT</span>
-          <span>STATUS</span>
-        </div>
-        <div className="shift-item">
-          <span>Morning visit</span>
-          <span>Caregiver A.</span>
-          <span className="status-pill">Confirmed</span>
-        </div>
-        <div className="shift-item">
-          <span>Afternoon</span>
-          <span>Caregiver M.</span>
-          <span className="status-pill !bg-[#CDEFFF] !text-[#145471]">Pending</span>
-        </div>
-        <div className="shift-item">
-          <span>Evening visit</span>
-          <span>Manager review</span>
-          <span className="status-pill !bg-[#F3FBFF] !text-[#14384a]">Needs coverage</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TaskList({ items }: { items: string[] }) {
-  return (
-    <ul className="grid list-none grid-cols-1 gap-y-3 p-0 sm:grid-cols-2">
-      {items.map((item) => (
-        <li key={item} className="flex items-start gap-2.5 text-[13px] text-[#405861]">
-          <Check size={15} className="mt-0.5 shrink-0 text-[#0E6284]" />
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
 function App() {
   const currentYear = 2026;
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  const closeMenu = () => setMenuOpen(false);
 
   return (
     <div id="top" className="site-shell">
       <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-3">
         Skip to content
       </a>
-      <header className="sticky top-0 z-50 border-b border-[#CDEFFF]/90 bg-[#F3FBFF]/90 backdrop-blur-md">
-        <div className="container-wide flex h-[76px] items-center justify-between">
-          <Brand />
-          <nav aria-label="Main navigation" className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
-              <a key={link.href} href={link.href} className="text-[12px] font-semibold text-[#405861] no-underline transition-colors hover:text-[#0E6284]">
-                {link.label}
-              </a>
-            ))}
-          </nav>
-          <a href="#contact" className="hidden items-center gap-2 rounded-sm bg-[#14384a] px-5 py-3 text-[11px] font-bold tracking-wide text-[#fffef8] no-underline transition hover:bg-[#0c2d40] md:inline-flex">
-            Book a discovery call <ArrowUpRight size={14} />
-          </a>
-          <button
-            type="button"
-            className="grid h-11 w-11 place-items-center rounded-md border border-[#CDEFFF] text-[#1b3a49] md:hidden"
-            aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((value) => !value)}
-            data-testid="button-mobile-menu"
-          >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-        {menuOpen && (
-          <nav aria-label="Mobile navigation" className="mobile-menu border-t border-[#CDEFFF] bg-[#F3FBFF] px-[18px] py-4 md:hidden">
-            <div className="mx-auto flex max-w-[720px] flex-col gap-1">
-              {navLinks.map((link) => (
-                <a key={link.href} onClick={closeMenu} href={link.href} className="rounded px-3 py-3 text-sm font-semibold text-[#405861] no-underline hover:bg-[#CDEFFF]">
-                  {link.label}
-                </a>
-              ))}
-              <a onClick={closeMenu} href="#contact" className="mt-2 flex items-center justify-center gap-2 rounded-sm bg-[#14384a] px-5 py-3 text-sm font-bold text-white no-underline">
-                Book a discovery call <ArrowUpRight size={15} />
-              </a>
-            </div>
-          </nav>
-        )}
-      </header>
+      <SiteHeader />
 
       <main id="main-content">
         <section className="relative overflow-hidden bg-[#F3FBFF]">
@@ -563,45 +305,7 @@ function App() {
           </div>
         </section>
 
-        <section className="section-pad bg-[#F3FBFF]">
-          <div className="container-wide grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
-            <div>
-              <div className="eyebrow mb-5">A few helpful answers</div>
-              <h2 className="display-font mb-4 text-[clamp(34px,4vw,48px)] font-semibold leading-[1.08] text-[#17384a]">Questions, answered.</h2>
-              <p className="max-w-[330px] text-[13px] leading-[1.8] text-[#657773]">Want to talk through a particular workflow? We can start there.</p>
-              <a href="#contact" className="mt-3 inline-flex items-center gap-2 text-[12px] font-bold text-[#0E6284] no-underline">
-                Talk with our team <ArrowRight size={15} />
-              </a>
-            </div>
-            <div className="border-t border-[#CDEFFF]">
-              {faqs.map(({ q, a }, index) => {
-                const isOpen = openFaq === index;
-                return (
-                  <div key={q} className="border-b border-[#CDEFFF]">
-                    <h3 className="m-0">
-                      <button
-                        id={`faq-trigger-${index}`}
-                        aria-controls={`faq-panel-${index}`}
-                        aria-expanded={isOpen}
-                        onClick={() => setOpenFaq(isOpen ? null : index)}
-                        className="flex w-full items-center justify-between gap-5 py-5 text-left text-[13px] font-bold text-[#274653]"
-                        data-testid={`button-faq-${index}`}
-                      >
-                        <span>{q}</span>
-                        <ChevronDown size={17} className={`shrink-0 text-[#0E6284] transition-transform ${isOpen ? "rotate-180" : ""}`} />
-                      </button>
-                    </h3>
-                    <div id={`faq-panel-${index}`} role="region" aria-labelledby={`faq-trigger-${index}`} className="accordion-content" data-open={isOpen}>
-                      <div>
-                        <p className="mb-5 max-w-[690px] pr-8 text-[12px] leading-[1.8] text-[#657773]">{a}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
+        <FaqSection />
 
         <section id="contact" className="bg-[#17384a] py-[90px] text-[#f8f7f0]">
           <div className="container-wide grid gap-12 lg:grid-cols-[.9fr_1.1fr]">
